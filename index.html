@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adam và Evar</title>
+</head>
+<body>
+<style>
+    div{
+        float: left;
+        width: 300px;
+    }
+</style>
+</head>
+</body>
+<div>
+    <h1>Adam</h1>
+    <button onclick="showInfor(adam)">Show Infor </button><br>
+    <p id="adam-infor"></p>
+    <button onclick="getInfor(adam,eva)">GetInfor Eva </button>
+    <p id="getInfor-eva"></p>
+    <button onclick="getInforApple(1)">GetInfor Apple</button>
+    <p id="getInforApple1"></p>
+    <button onclick=" say(adam)">Say</button>
+    <p id="adam-say"></p>
+    <button onclick="eat(adam,apple)" >Eat</button>
+</div>
+<div>
+    <h1>Eva</h1>
+    <button onclick="showInfor(eva)">Show Infor </button>
+    <p id="eva-infor"></p>
+    <button onclick="getInfor(eva,adam)">GetInfor Adam </button>
+    <p id="getInfor-adam"></p>
+    <button onclick="getInforApple(2)">GetInfor Apple</button>
+    <p id="getInforApple2"></p>
+    <button onclick="say(eva)">Say</button>
+    <p id="eva-say"></p>
+    <button onclick="eat(eva,apple)">Eat</button>
+</div>
+<div>
+    <h1>Apple</h1>
+    <button onclick="getInforApple(3)">GetInfor Apple</button>
+    <p id="getInforApple3"></p>
+</div>
+<script>
+    class Apple{
+        constructor(weight) {
+            this.weight= weight;
+        }
+        getWeight(){
+            return this.weight;
+        }
+        isEmty(){
+            if (this.weight<=0){
+                return false
+            }else {
+                return true
+            }
+        }
+        decrease(){
+            if (this.isEmty())
+                this.weight--
+        }
+    }
+    class Human{
+        constructor(name,gender,weight) {
+            this.name=name;
+            this.gender=gender;
+            this.weight=weight;
+        }
+        getInfor(){
+            return "name: "+this.name+" gender: "+this.gender+" weight: "+this.weight;
+        }
+        say(){
+            return "Hello baby"
+        }
+        getInforOther(human){
+            return human.getInfor();
+        }
+        checkApple(apple){
+            return apple.getWeight();
+        }
+        eatApple(apple){
+            if(apple.weight>0){
+                apple.decrease();
+                this.weight++}
+        }
+    }
+    let apple= new Apple(10);
+    let adam = new Human("adam","male","80");
+    let eva = new Human("eva","female","50");
+    function showInfor(human){
+        document.getElementById(human.name+"-infor").innerText=human.getInfor();
+    }
+    function getInfor(human1,human2){
+        document.getElementById("getInfor-"+human2.name).innerText=human1.getInforOther(human2);
+    }
+    function getInforApple(index){
+        document.getElementById("getInforApple"+index).innerText=apple.getWeight();
+    }
+    function say(human){
+        document.getElementById(human.name+"-say").innerText=human.say();
+    }
+    function eat(human,apple){
+        human.eatApple(apple);
+        dislay();
+    }
+    function dislay(){
+        showInfor(adam);
+        showInfor(eva);
+        getInfor(adam,eva);
+        getInfor(eva,adam);
+        getInforApple(1);
+        getInforApple(2);
+        getInforApple(3)
+    }
+
+</script>
+</html>
